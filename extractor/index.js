@@ -11,6 +11,7 @@ const targetFolder = path.resolve('../sounds');
 log('Fetching versions . . .');
 const versions = await fetchJSON('https://launchermeta.mojang.com/mc/game/version_manifest.json');
 const latestVersion = versions.versions[0];
+await fs.writeFile(path.join(targetFolder, 'info.json'), JSON.stringify({ version: latestVersion.id }, null, 2));
 const launcherDataURL = latestVersion.url;
 log(`Target version: ${latestVersion.id}`);
 
@@ -27,13 +28,15 @@ const soundsHash = objects['minecraft/sounds.json'].hash;
 log('Copying sounds.json . . .');
 fs.copyFile(fetchObject(soundsHash), path.join(targetFolder, 'sounds.json'));
 
+log('Copying sounds . . .');
 for (const [k, v] of Object.entries(objects)) {
   if (!k.startsWith('minecraft/sounds/')) continue;
   const file = k.replace(/^minecraft\/sounds\//, '');
-  log(`Copying ${file}`);
   await fs.mkdir(path.join(targetFolder, path.dirname(file)), { recursive: true });
   await fs.copyFile(fetchObject(v.hash), path.join(targetFolder, k.replace(/^minecraft\/sounds\//, '')));
 }
+
+log('Done!');
 
 
 
