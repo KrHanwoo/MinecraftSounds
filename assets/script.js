@@ -7,13 +7,34 @@
   document.body.append(...groups);
 
   Object.keys(sounds).forEach(s => {
-    $(s).append(...sounds[s].sounds.map(sk => sk.name || sk).map(sk => {
+    $(s).append(...sounds[s].sounds.map(sk => {
+      const name = sk.name || sk;
+      const isEvent = sk.type == 'event';
+      const div = document.createElement('div');
+
+      if (isEvent) {
+        const span = document.createElement('span');
+        span.innerText = name;
+        span.classList.add('sound-key');
+        span.classList.add('event-key');
+        span.setAttribute('onclick', 'navigateEvent(this)');
+        div.append(span);
+        return div;
+      }
+
+      const download = document.createElement('a');
+      download.classList.add('download');
+      download.innerText = 'Download';
+      download.href = `sounds/${sk}.ogg`;
+      download.toggleAttribute('download');
+
       const span = document.createElement('span');
-      span.innerText = sk;
+      span.innerText = name;
       span.classList.add('sound-key');
-      span.onclick = () => { playsound(sk, span); };
-      return span;
+      span.setAttribute('onclick', 'playsound(this)');
+
+      div.append(download, span);
+      return div;
     }));
   });
-
 })();

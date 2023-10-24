@@ -11,10 +11,32 @@ html,body{
 
 details{
   border: 2px solid #21252b;
-  padding: 5px;
-  margin: 10px;
+  margin: 5px;
   display: flex;
   flex-direction: column;
+  padding: 3px;
+}
+
+details > div{
+  margin: 1px 0px;
+}
+
+details[open] > summary::before{
+  content: '-';
+}
+
+summary::before{
+  content: '+';
+  width: 30px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+summary{
+  height: 1em;
+  display: flex;
+  align-items: center;
 }
 
 .center{
@@ -29,7 +51,7 @@ details{
 }
 
 .sound{
-  background-color: rgb(183, 255, 183);
+  background-color: rgb(220, 255, 220);
 }
 
 .sound-key{
@@ -41,10 +63,19 @@ details{
   transition: all 0.1s ease;
 }
 
+.event-key{
+  margin: 3px 0px;
+  color: rgb(255, 0, 255);
+}
+
 .sound-key.loading{
   background-color: rgb(250, 197, 255);
 }
 
 .sound-key.playing{
   background-color: rgb(170, 210, 255);
+}
+
+.download{
+  margin-left: 5px;
 }

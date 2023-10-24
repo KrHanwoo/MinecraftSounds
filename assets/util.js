@@ -31,7 +31,7 @@ function createGroups(keys, parent, additional) {
   });
 }
 
-async function playsound(key, elem) {
+async function playsound(elem) {
   if(elem.audio){
     elem.audio.pause();
     elem.audio.remove();
@@ -40,7 +40,7 @@ async function playsound(key, elem) {
     elem.classList.remove('playing');
     return;
   }
-  const audio = new Audio(`sounds/${key}.ogg`);
+  const audio = new Audio(`sounds/${elem.innerText}.ogg`);
   elem.audio = audio;
   elem.classList.add('loading');
   await audio.play();
@@ -50,4 +50,9 @@ async function playsound(key, elem) {
     elem.classList.remove('playing');
     elem.audio = undefined;
   };
+}
+
+function navigateEvent(elem) {
+  $(elem.innerText).toggleAttribute('open', true);
+  $(elem.innerText).scrollIntoView({block:"center"});
 }
