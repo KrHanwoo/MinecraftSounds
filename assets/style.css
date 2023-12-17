@@ -18,7 +18,32 @@ details{
 }
 
 details > div{
-  margin: 1px 0px;
+  margin-left: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+details > div > a:first-child{
+  margin-left: 23px;
+  color: #ff00ff;
+}
+
+details > div > span:first-child{
+  font-family: 'Material Symbols Outlined';
+  line-height: 1;
+  font-size: 18px;
+  width: 18px;
+  color: blue;
+  cursor: pointer;
+}
+
+details > div > span:last-child{
+  width: fit-content;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.1s ease;
 }
 
 details[open] > summary::before{
@@ -37,6 +62,17 @@ summary{
   height: 1em;
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+summary > span:nth-child(2){
+  font-family: 'Material Symbols Outlined';
+  line-height: 1;
+  font-size: 18px;
+  width: 18px;
+  color: blue;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 .center{
@@ -54,28 +90,10 @@ summary{
   background-color: rgb(220, 255, 220);
 }
 
-.sound-key{
-  width: fit-content;
-  margin: 3px;
-  padding: 2px 5px;
-  background-color: transparent;
-  cursor: pointer;
-  transition: all 0.1s ease;
+.loading{
+  background-color: rgb(250, 197, 255) !important;
 }
 
-.event-key{
-  margin: 3px 0px;
-  color: rgb(255, 0, 255);
-}
-
-.sound-key.loading{
-  background-color: rgb(250, 197, 255);
-}
-
-.sound-key.playing{
-  background-color: rgb(170, 210, 255);
-}
-
-.download{
-  margin-left: 5px;
+.playing{
+  background-color: rgb(170, 210, 255) !important;
 }

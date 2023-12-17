@@ -8,5 +8,8 @@
   },
   "author": "KrHanwoo",
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "jsdom": "^23.0.1"
+  }
 }
