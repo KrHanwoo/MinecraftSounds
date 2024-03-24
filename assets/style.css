@@ -1,8 +1,10 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css");
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 :root{
   user-select: none;
-  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: "Jetbrains Mono", monospace;
+  background: #23272e;
+  color: #eeeeee;
 }
 
 html,body{
@@ -10,7 +12,7 @@ html,body{
 }
 
 details{
-  border: 2px solid #21252b;
+  border: 2px solid #777777;
   margin: 5px;
   display: flex;
   flex-direction: column;
@@ -27,7 +29,7 @@ details > div{
 
 details > div > a:first-child{
   margin-left: 23px;
-  color: #ff00ff;
+  color: #ea52ea;
 }
 
 details > div > span:first-child{
@@ -35,7 +37,7 @@ details > div > span:first-child{
   line-height: 1;
   font-size: 18px;
   width: 18px;
-  color: blue;
+  color: white;
   cursor: pointer;
 }
 
@@ -73,6 +75,7 @@ summary > span:nth-child(2){
   color: blue;
   cursor: pointer;
   margin-left: 5px;
+  align-self: baseline;
 }
 
 .center{
@@ -87,13 +90,36 @@ summary > span:nth-child(2){
 }
 
 .sound{
-  background-color: rgb(220, 255, 220);
+  background-color: #123d12;
 }
 
 .loading{
-  background-color: rgb(250, 197, 255) !important;
+  background-color: #f5df5b !important;
+  color: #222222;
 }
 
 .playing{
-  background-color: rgb(170, 210, 255) !important;
+  background-color: #bcc8ff !important;
+  color: #222222;
+}
+
+.downloading{
+  color: #ffe400 !important;
+}
+
+.search{
+  display: flex;
+  flex-direction: column;
+}
+
+#sound{
+  border: 2px solid #777777;
+  box-sizing: border-box;
+  margin: 0 5px;
+  font-family: "Jetbrains Mono", monospace;
+  outline: none;
+  background: #2e3237;
+  color: white;
+  padding: 4px;
+  font-size: 16px;
 }

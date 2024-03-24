@@ -4,14 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minecraft Sounds</title>
-  <script src="assets/util.js"></script>
+  <script src="assets/util.js" defer></script>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="shortcut icon" href="assets/favicon.webp">
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
 </head>
 <body>
   <div class="center">
     <span id="version-text"></span>
   </div>
+  <div class="search">
+    <input type="text" name="sound" id="sound">
+    <div id="results"></div>
+  </div>
+  <div id="main"></div>
 </body>
 </html>

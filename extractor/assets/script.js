@@ -3,7 +3,7 @@ const id = (id) => document.getElementById(id);
 (async () => {
   id('version-text').textContent = version;
   const groups = createGroups(Object.keys(sounds));
-  document.body.append(...groups);
+  id('main').append(...groups);
 
   Object.keys(sounds).forEach(s => {
     id(s).append(...sounds[s].sounds.map(sk => {
@@ -20,12 +20,12 @@ const id = (id) => document.getElementById(id);
       }
 
       const download = document.createElement('span');
-      download.textContent = 'download';
-      download.setAttribute('onclick', `dl('${name}')`);
+      download.innerHTML = '&#xf090;';
+      download.setAttribute('dl', name);
 
       const span = document.createElement('span');
       span.textContent = name;
-      span.setAttribute('onclick', `ps(this)`);
+      span.toggleAttribute('snd');
 
       div.append(download, span);
       return div;
@@ -53,12 +53,12 @@ function createGroups(keys, parent, additional) {
     span.textContent = additional ? `${additional}.${k}` : current;
     summary.append(span);
     
-    if(!isParent){
-      const link = document.createElement('span');
-      link.textContent = 'link';
-      link.setAttribute('onclick', 'li(event)');
-      summary.append(link);
-    }
+    // if(!isParent){
+    //   const link = document.createElement('span');
+    //   link.innerHTML = '&#xe157;';
+    //   link.setAttribute('onclick', 'li(event)');
+    //   summary.append(link);
+    // }
 
     details.append(summary);
     if (isParent) details.append(...createGroups(v, parentCurrent).flat());

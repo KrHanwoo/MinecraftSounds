@@ -4,11 +4,14 @@ import fs from 'fs/promises';
 import { JSDOM } from 'jsdom';
 import Ffmpeg from 'fluent-ffmpeg';
 
+const targetFolder = path.resolve('../sounds');
+
+/*
+
 //Windows Only
 const minecraft = path.join(process.env.APPDATA, '.minecraft');
 const objectsFolder = path.join(minecraft, 'assets', 'objects');
 
-const targetFolder = path.resolve('../sounds');
 
 log('Fetching versions . . .');
 const versions = await fetchJSON('https://launchermeta.mojang.com/mc/game/version_manifest.json');
@@ -43,6 +46,15 @@ for (const [k, v] of Object.entries(objects)) {
       .saveToFile(path.join(targetFolder, k.replace(/^minecraft\/sounds\//, '')).replace('.ogg', '.mp3'));
   });
 }
+
+**/
+
+log('Generating Keys. . .');
+
+let soundsJson = (await fs.readFile(path.join(targetFolder, 'sounds.json'))).toString();
+let keys = Object.keys(JSON.parse(soundsJson));
+await fs.writeFile(path.join(targetFolder, 'keys.json'), JSON.stringify(keys, null, 2));
+
 
 log('Generating HTML . . .');
 
