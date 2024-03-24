@@ -7,8 +7,8 @@ const $ = (id) => document.getElementById(id);
 
 function dl(name) {
   const a = document.createElement('a');
-  a.download = `${name}.ogg`
-  a.href = `sounds/${name}.ogg`;
+  a.download = `${name}.mp3`
+  a.href = `sounds/${name}.mp3`;
   a.click();
 }
 
@@ -21,7 +21,7 @@ async function ps(elem) {
     elem.classList.remove('playing');
     return;
   }
-  const audio = new Audio(`sounds/${elem.textContent}.ogg`);
+  const audio = new Audio(`sounds/${elem.textContent}.mp3`);
   audio.onended = () => {
     elem.classList.remove('playing');
     elem.audio = undefined;

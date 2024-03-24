@@ -1,7 +1,8 @@
 import { log } from 'console';
 import path from 'path';
 import fs from 'fs/promises';
-import {JSDOM} from 'jsdom';
+import { JSDOM } from 'jsdom';
+import Ffmpeg from 'fluent-ffmpeg';
 
 //Windows Only
 const minecraft = path.join(process.env.APPDATA, '.minecraft');
@@ -34,7 +35,13 @@ for (const [k, v] of Object.entries(objects)) {
   if (!k.startsWith('minecraft/sounds/')) continue;
   const file = k.replace(/^minecraft\/sounds\//, '');
   await fs.mkdir(path.join(targetFolder, path.dirname(file)), { recursive: true });
-  await fs.copyFile(fetchObject(v.hash), path.join(targetFolder, k.replace(/^minecraft\/sounds\//, '')));
+  await new Promise((resolve) => {
+    Ffmpeg()
+      .input(fetchObject(v.hash))
+      .toFormat('mp3')
+      .on('end', resolve)
+      .saveToFile(path.join(targetFolder, k.replace(/^minecraft\/sounds\//, '')).replace('.ogg', '.mp3'));
+  });
 }
 
 log('Generating HTML . . .');
@@ -46,7 +53,7 @@ script += `const sounds = ${await readAsString('../sounds/sounds.json')}\n`;
 script += await readAsString('assets/script.js');
 await jsdom.window.eval(script);
 
-fs.writeFile('../index.html', jsdom.serialize() );
+fs.writeFile('../index.html', jsdom.serialize());
 
 log('Done!');
 
@@ -60,6 +67,6 @@ function fetchObject(hash) {
   return path.join(objectsFolder, index, hash);
 }
 
-async function readAsString(file){
+async function readAsString(file) {
   return (await fs.readFile(file)).toString();
 }

@@ -10,6 +10,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
     "jsdom": "^23.0.1"
   }
 }
