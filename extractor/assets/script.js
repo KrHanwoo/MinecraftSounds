@@ -6,8 +6,11 @@ const id = (id) => document.getElementById(id);
   id('main').append(...groups);
 
   Object.keys(sounds).forEach(s => {
+    let soundNames = new Set();
     id(s).append(...sounds[s].sounds.map(sk => {
       const name = sk.name || sk;
+      if (soundNames.has(name)) return null;
+      soundNames.add(name);
       const isEvent = sk.type == 'event';
       const div = document.createElement('div');
 
@@ -29,7 +32,7 @@ const id = (id) => document.getElementById(id);
 
       div.append(download, span);
       return div;
-    }));
+    }).filter(x => x));
   });
 })();
 
@@ -52,7 +55,7 @@ function createGroups(keys, parent, additional) {
     const span = document.createElement('span');
     span.textContent = additional ? `${additional}.${k}` : current;
     summary.append(span);
-    
+
     // if(!isParent){
     //   const link = document.createElement('span');
     //   link.innerHTML = '&#xe157;';

@@ -5,49 +5,48 @@ import { JSDOM } from 'jsdom';
 import Ffmpeg from 'fluent-ffmpeg';
 
 const targetFolder = path.resolve('../sounds');
-
-/*
-
-//Windows Only
-const minecraft = path.join(process.env.APPDATA, '.minecraft');
+// const minecraft = path.join(process.env.APPDATA, '.minecraft');
+const minecraft = path.join(process.env.APPDATA, 'ModrinthApp', 'meta');
 const objectsFolder = path.join(minecraft, 'assets', 'objects');
 
+async function updateSounds() {
+  log('Fetching versions . . .');
+  const versions = await fetchJSON('https://launchermeta.mojang.com/mc/game/version_manifest.json');
+  const latestVersion = versions.versions[0];
+  await fs.writeFile(path.join(targetFolder, 'info.json'), JSON.stringify({ version: latestVersion.id }, null, 2));
+  const launcherDataURL = latestVersion.url;
+  log(`Target version: ${latestVersion.id}`);
 
-log('Fetching versions . . .');
-const versions = await fetchJSON('https://launchermeta.mojang.com/mc/game/version_manifest.json');
-const latestVersion = versions.versions[0];
-await fs.writeFile(path.join(targetFolder, 'info.json'), JSON.stringify({ version: latestVersion.id }, null, 2));
-const launcherDataURL = latestVersion.url;
-log(`Target version: ${latestVersion.id}`);
+  log('Fetching launcher data . . .');
+  const launcherData = await fetchJSON(launcherDataURL);
+  const assetIndexURL = launcherData.assetIndex.url;
 
-log('Fetching launcher data . . .');
-const launcherData = await fetchJSON(launcherDataURL);
-const assetIndexURL = launcherData.assetIndex.url;
+  log('Fetching asset index . . .');
+  const assetIndex = await fetchJSON(assetIndexURL);
+  const objects = assetIndex.objects;
 
-log('Fetching asset index . . .');
-const assetIndex = await fetchJSON(assetIndexURL);
-const objects = assetIndex.objects;
+  const soundsHash = objects['minecraft/sounds.json'].hash;
 
-const soundsHash = objects['minecraft/sounds.json'].hash;
+  log('Copying sounds.json . . .');
+  fs.copyFile(fetchObject(soundsHash), path.join(targetFolder, 'sounds.json'));
 
-log('Copying sounds.json . . .');
-fs.copyFile(fetchObject(soundsHash), path.join(targetFolder, 'sounds.json'));
-
-log('Copying sounds . . .');
-for (const [k, v] of Object.entries(objects)) {
-  if (!k.startsWith('minecraft/sounds/')) continue;
-  const file = k.replace(/^minecraft\/sounds\//, '');
-  await fs.mkdir(path.join(targetFolder, path.dirname(file)), { recursive: true });
-  await new Promise((resolve) => {
-    Ffmpeg()
-      .input(fetchObject(v.hash))
-      .toFormat('mp3')
-      .on('end', resolve)
-      .saveToFile(path.join(targetFolder, k.replace(/^minecraft\/sounds\//, '')).replace('.ogg', '.mp3'));
-  });
+  log('Copying sounds . . .');
+  for (const [k, v] of Object.entries(objects)) {
+    if (!k.startsWith('minecraft/sounds/')) continue;
+    const file = k.replace(/^minecraft\/sounds\//, '');
+    await fs.mkdir(path.join(targetFolder, path.dirname(file)), { recursive: true });
+    await new Promise((resolve) => {
+      Ffmpeg()
+        .input(fetchObject(v.hash))
+        .toFormat('mp3')
+        .on('end', resolve)
+        .saveToFile(path.join(targetFolder, k.replace(/^minecraft\/sounds\//, '')).replace('.ogg', '.mp3'));
+    });
+  }
 }
 
-**/
+// await updateSounds();
+
 
 log('Generating Keys. . .');
 

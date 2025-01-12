@@ -30,6 +30,7 @@ details > div{
 details > div > a:first-child{
   margin-left: 23px;
   color: #ea52ea;
+  cursor: pointer;
 }
 
 details > div > span:first-child{
@@ -39,6 +40,11 @@ details > div > span:first-child{
   width: 18px;
   color: white;
   cursor: pointer;
+  opacity: 0;
+}
+
+details > div:hover > span:first-child{
+  opacity: 1;
 }
 
 details > div > span:last-child{
